@@ -1,13 +1,21 @@
+var
+  span  = require('span'),
+  stats = { responses: [] };
+
+
+// TODO: make a pretty version of this as well as json
+// TODO: add auth
+// TODO: add stats (like avg resp time)
 
 module.exports = function (options) {
   var defaultOptions = {
-    url: '/health',
-    appVersion: 'unknown',
+    url        : '/health',
+    cacheSize  : 100,
+    appVersion : 'unknown',
     statusCheck: function() {
       return 'ok';
     }
   };
-
 
   // extend the options with defaults:
   options = options || {};
@@ -18,21 +26,36 @@ module.exports = function (options) {
   }
 
   return function(req, res, next) {
-    // TODO: make a pretty version of this as well as json
-    // TODO: add auth
-    // TODO: add stats (like avg resp time)
-
     if (req.url == options.url) {
       res.send({
-        status: options.statusCheck(req, res),
-        pid: process.pid,
-        uptime: process.uptime(),
-        NODE_ENV: process.env.NODE_ENV,
-        memory: process.memoryUsage(),
-        node: process.versions
+        status            : options.statusCheck(req, res),
+        pid               : process.pid,
+        uptime            : span(process.uptime() * 1000),
+        response_time_avg : Math.round(avg(stats.responses))+'ms',
+        NODE_ENV          : process.env.NODE_ENV,
+        memory            : process.memoryUsage(),
+        node              : process.versions
       });
     } else {
-      next();
+      res.on('header', function(data) {
+        // get the response time and strip off the "ms"
+        var responseTime = res.get('x-response-time').slice(0, -2);
+        if (stats.responses.length == options.cacheSize) {
+          stats.responses.shift();
+        }
+        stats.responses.push(responseTime);
+      });
+      return next();
     }
   };
+};
+
+
+// Averages the sum of all elements in an array:
+var avg = function(array) {
+  var sum = 0;
+  for (var i = array.length - 1; i >= 0; i--) {
+    sum = sum + parseInt(array[i], 10);
+  }
+  return sum / array.length;
 };
