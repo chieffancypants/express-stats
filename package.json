@@ -1,0 +1,23 @@
+{
+  "name": "express-stats",
+  "version": "0.0.1",
+  "description": "report status, statistics, memory usage, etc for express apps",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "chieffancypants/express-stats"
+  },
+  "keywords": [
+    "express",
+    "stats",
+    "statistics",
+    "heartbeat",
+    "status",
+    "health"
+  ],
+  "author": "chieffancypants",
+  "license": "MIT",
+  "dependencies": {
+    "remote-repl": "~0.1.2"
+  }
+}
