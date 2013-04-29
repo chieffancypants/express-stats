@@ -32,7 +32,7 @@ module.exports = function (options) {
         node              : process.versions
       });
     } else {
-      res.on('header', function(data) {
+      res.on('finish', function(data) {
         // get the response time and strip off the "ms"
         var responseTime = res.get('x-response-time').slice(0, -2);
         if (stats.responses.length == options.cacheSize) {
