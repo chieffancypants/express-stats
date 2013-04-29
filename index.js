@@ -27,7 +27,7 @@ module.exports = function (options) {
         pid               : process.pid,
         uptime            : span(process.uptime() * 1000),
         response_time_avg : Math.round(avg(stats.responses))+'ms',
-        NODE_ENV          : process.env.NODE_ENV,
+        env               : process.env.NODE_ENV,
         memory            : process.memoryUsage(),
         node              : process.versions
       });
