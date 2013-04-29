@@ -3,10 +3,6 @@ Express middleware that exposes statistical information, status and other useful
 
 This software is currently early alpha -- not all functionality is present and is subject to change.
 
-## Installation
-```
-npm install express-stats
-```
 
 ## Example
 
