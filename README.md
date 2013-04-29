@@ -8,10 +8,9 @@ This software is currently early alpha -- not all functionality is present and i
 
 ```js
 var
-  express    = require('express'),
-  stats      = require('express-stats'),
-  app        = module.exports = express();
-
+  express = require('express'),
+  stats   = require('express-stats'),
+  app     = module.exports = express();
 
 app.configure(function() {
   app.use(express.responseTime());
@@ -27,4 +26,4 @@ app.listen(3000, function() {
 ```
 
 ## License 
-MIT License: See `LICENSE`
+MIT License: See the [LICENSE](https://github.com/chieffancypants/express-stats/blob/master/LICENSE) file.

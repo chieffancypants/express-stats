@@ -2,11 +2,6 @@ var
   span  = require('span'),
   stats = { responses: [] };
 
-
-// TODO: make a pretty version of this as well as json
-// TODO: add auth
-// TODO: add stats (like avg resp time)
-
 module.exports = function (options) {
   var defaultOptions = {
     url        : '/health',
