@@ -3,7 +3,6 @@ Express middleware that exposes statistical information, status and other useful
 
 This software is currently early alpha -- not all functionality is present and is subject to change.
 
-
 ## Example
 
 ```js
@@ -52,6 +51,21 @@ This will output the following json:
 }
 ```
 
+## Configuration
+You specify options during the express.js configuration:
 
-## License 
-MIT License: See the [LICENSE](https://github.com/chieffancypants/express-stats/blob/master/LICENSE) file.
+```js
+app.use(stats({ url: '/health-status' }));
+```
+
+### Options:
+- **url** the path the stats collection should bind to for reporting.  Defaults to `/health`
+- **cacheSize** The in-memory cache size for the stats.  Records the last N response times.  Defaults to 100
+- **statusCheck** Pass a function that should be used to determine whether the app is up or not.  Defaults to simply returning `ok`
+
+
+
+## License
+MIT License  
+
+See the [LICENSE](https://github.com/chieffancypants/express-stats/blob/master/LICENSE) file for more info.
